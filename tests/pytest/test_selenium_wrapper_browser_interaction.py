@@ -1,3 +1,4 @@
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 import pytest
 
@@ -86,3 +87,23 @@ def test_tab_switching(driver, driver_type):
 
     driver.switch_to_tab('The Internet', index=0)
     assert driver.get_driver().current_url == "https://the-internet.herokuapp.com/"
+
+
+@pytest.mark.unit
+@pytest.mark.parametrize("driver_type", ["chrome", "firefox", "edge"])
+def test_iframe_switching(driver, driver_type):
+    driver.goto("https://the-internet.herokuapp.com/iframe")
+
+    driver.switch_to_frame("mce_0_ifr")
+    editor = driver.find_element("body#tinymce", By.CSS_SELECTOR)
+    assert editor.is_displayed()
+
+    editor.clear()
+    editor.type_text("Hello")
+    assert editor.get_text() == "Hello"
+
+    driver.exit_frame()
+    with pytest.raises(NoSuchElementException) as e_info:
+        driver.find_element("body#tinymce", By.CSS_SELECTOR).is_displayed()
+
+

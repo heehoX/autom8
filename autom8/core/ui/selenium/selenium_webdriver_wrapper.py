@@ -48,3 +48,8 @@ class SeleniumWebdriverWrapper(UiDriverInterface):
         if url:
             self.goto(url)
 
+    def switch_to_frame(self, iframe_selector: str):
+        self.__driver.switch_to.frame(iframe_selector)
+
+    def exit_frame(self):
+        self.__driver.switch_to.default_content()

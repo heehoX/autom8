@@ -26,3 +26,9 @@ class UiDriverInterface(metaclass=ABCMeta):
     @abstractmethod
     def switch_to_tab(self, tab_name: str, index: int): ...
 
+    @abstractmethod
+    def switch_to_frame(self, iframe): ...
+
+    @abstractmethod
+    def exit_frame(self): ...
+

@@ -21,7 +21,7 @@ class SeleniumDriverFactory:
         match browser:
             case Browser.CHROME.value:
                 options = ChromeOptions()
-                options.headless = True
+                options.headless = False
                 return webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
             case Browser.FIREFOX.value:
                 options = FirefoxOptions()
