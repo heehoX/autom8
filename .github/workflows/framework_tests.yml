@@ -32,3 +32,11 @@ jobs:
     - name: Test with pytest
       run: |
         pytest -v -m unit
+    - name: Test Report
+      uses: phoenix-actions/test-reporting@v8
+      id: test-report
+      if: success() || failure()
+      with:
+        name: Pytest Tests
+        path: report.xml
+        reporter: java-junit
