@@ -31,7 +31,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
       run: |
-        pytest -v -m unit
+        pytest -v -m unit --junitxml=report.xml
     - name: Test Report
       uses: phoenix-actions/test-reporting@v8
       id: test-report
