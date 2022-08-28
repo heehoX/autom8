@@ -1,8 +1,10 @@
 from autom8.core.interfaces.ui_driver_interface import UiDriverInterface
 from selenium.webdriver.remote.webdriver import WebDriver
 
+from autom8.core.ui.selenium.selenium_webelement_wrapper import SeleniumWebElementWrapper
 
-class SeleniumWrapper(UiDriverInterface):
+
+class SeleniumWebdriverWrapper(UiDriverInterface):
     def __init__(self, driver: WebDriver):
         self.__driver = driver
 
@@ -13,7 +15,7 @@ class SeleniumWrapper(UiDriverInterface):
         self.__driver.get(url)
 
     def find_element(self, selector: str, by: str):
-        return self.__driver.find_element(by=by, value=selector)
+        return SeleniumWebElementWrapper(self.__driver.find_element(by=by, value=selector))
 
     def close(self):
         self.__driver.close()
