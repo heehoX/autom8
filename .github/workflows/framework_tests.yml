@@ -10,7 +10,9 @@ on:
     branches: [ "main" ]
 
 permissions:
+  id-token: write
   contents: read
+  checks: write
 
 jobs:
   build:
@@ -31,4 +33,12 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
       run: |
-        pytest -v -m unit
+        pytest -v -m unit --junitxml=report.xml
+    - name: Test Report
+      uses: phoenix-actions/test-reporting@v8
+      id: test-report
+      if: success() || failure()
+      with:
+        name: Pytest Tests
+        path: report.xml
+        reporter: java-junit
