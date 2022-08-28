@@ -31,6 +31,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Set headless to true
+      run: |
+        echo "headless=true" >> $GITHUB_ENV
     - name: Test with pytest
       run: |
         pytest -v -m unit --junitxml=report.xml
