@@ -1,3 +1,5 @@
+from typing import Optional
+
 from autom8.core.interfaces.ui_driver_interface import UiDriverInterface
 from selenium.webdriver.remote.webdriver import WebDriver
 
@@ -26,3 +28,23 @@ class SeleniumWebdriverWrapper(UiDriverInterface):
 
     def forward(self):
         self.__driver.forward()
+
+    def switch_to_tab(self, tab_name: str, index: int = 0):
+        """Switch to tab by looking at the tab name
+        if there is an expected duplicate, pass in the
+        index."""
+        tabs = self.__driver.window_handles
+        for tab in tabs:
+            counter = 0
+            self.__driver.switch_to.window(tab)
+            if self.__driver.title == tab_name:
+                if counter == index:
+                    return
+                counter += 1
+
+    def open_new_tab(self, url: str = ""):
+        self.__driver.switch_to.new_window()
+
+        if url:
+            self.goto(url)
+

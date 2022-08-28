@@ -23,3 +23,6 @@ class UiDriverInterface(metaclass=ABCMeta):
     @abstractmethod
     def forward(self): ...
 
+    @abstractmethod
+    def switch_to_tab(self, tab_name: str, index: int): ...
+
