@@ -3,6 +3,8 @@ from typing import Optional
 
 from selenium.webdriver.remote.webdriver import WebDriver
 
+from autom8.core.interfaces.ui_element_interface import UiElementInterface
+
 
 class UiDriverInterface(metaclass=ABCMeta):
     @abstractmethod
@@ -32,3 +34,11 @@ class UiDriverInterface(metaclass=ABCMeta):
     @abstractmethod
     def exit_frame(self): ...
 
+    @abstractmethod
+    def execute_script(self, script): ...
+
+    @abstractmethod
+    def screenshot_page(self, filepath: str): ...
+
+    @abstractmethod
+    def highlight_element_and_screenshot_page(self, filepath: str, element_to_highlight: UiElementInterface): ...

@@ -3,6 +3,8 @@ from typing import Optional
 from autom8.core.interfaces.ui_driver_interface import UiDriverInterface
 from selenium.webdriver.remote.webdriver import WebDriver
 
+from autom8.core.interfaces.ui_element_interface import UiElementInterface
+from autom8.core.ui.helpers.javascript_helpers import highlight_element_script, apply_style_script
 from autom8.core.ui.selenium.selenium_webelement_wrapper import SeleniumWebElementWrapper
 
 
@@ -53,3 +55,16 @@ class SeleniumWebdriverWrapper(UiDriverInterface):
 
     def exit_frame(self):
         self.__driver.switch_to.default_content()
+
+    def execute_script(self, *args):
+        self.__driver.execute_script(*args)
+
+    def screenshot_page(self, filepath: str):
+        self.__driver.save_screenshot(filepath)
+
+    def highlight_element_and_screenshot_page(self, filepath, element_to_highlight: UiElementInterface):
+        if element_to_highlight:
+            original_style = element_to_highlight.get_element().get_attribute('style')
+            self.execute_script(apply_style_script(), element_to_highlight.get_element(), highlight_element_script())
+            self.screenshot_page(filepath)
+            self.execute_script(apply_style_script(), element_to_highlight.get_element(), original_style)

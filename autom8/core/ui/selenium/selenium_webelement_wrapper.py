@@ -8,6 +8,9 @@ class SeleniumWebElementWrapper(UiElementInterface):
     def __init__(self, element: WebElement):
         self.__element = element
 
+    def get_element(self):
+        return self.__element
+
     def click(self):
         self.__element.click()
 
