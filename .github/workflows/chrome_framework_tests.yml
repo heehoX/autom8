@@ -1,13 +1,10 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: Chrome Tests
+name: 'Chrome'
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
 
 permissions:
   id-token: write
@@ -34,12 +31,10 @@ jobs:
         echo "headless=true" >> $GITHUB_ENV
     - name: Test with pytest
       run: |
-        pytest -v -k chrome -m unit --junitxml=report.xml
+        pytest -v -k chrome -m unit --junitxml=chrome-report.xml
     - name: Test Report
-      uses: phoenix-actions/test-reporting@v8
-      id: test-report-chrome
+      uses: actions/upload-artifact@v2
       if: success() || failure()
       with:
-        name: Google Chrome Pytest Tests
-        path: report.xml
-        reporter: java-junit
+        name: test-results
+        path: chrome-report.xml

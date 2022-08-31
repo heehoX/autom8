@@ -1,0 +1,17 @@
+name: 'Test Report'
+on:
+  workflow_run:
+    workflows: ['Chrome', 'Firefox', 'Edge']
+    types:
+      - completed
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: phoenix-actions/test-reporting@v8
+      id: test-report
+      with:
+        artifact: test-results
+        name: Pytest Tests
+        path: '*.xml'
+        reporter: java-junit
