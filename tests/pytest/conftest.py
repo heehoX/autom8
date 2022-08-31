@@ -6,7 +6,7 @@ from autom8.core.ui.selenium.selenium_webdriver_wrapper import SeleniumWebdriver
 
 @pytest.fixture
 def driver(request):
-    driver_type = request.node.callspec.params['driver_type']
+    driver_type = request.node.callspec.id
     driver = SeleniumWebdriverWrapper(SeleniumDriverFactory.create_new_driver(driver_type))
     yield driver
     driver.close()
