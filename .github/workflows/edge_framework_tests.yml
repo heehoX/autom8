@@ -40,6 +40,6 @@ jobs:
       id: test-report
       if: success() || failure()
       with:
-        name: Pytest Tests
+        name: Microsoft Edge Pytest Tests
         path: report.xml
         reporter: java-junit
