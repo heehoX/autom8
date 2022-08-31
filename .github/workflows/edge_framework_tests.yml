@@ -37,7 +37,7 @@ jobs:
         pytest -v -k edge -m unit --junitxml=report.xml
     - name: Test Report
       uses: phoenix-actions/test-reporting@v8
-      id: test-report
+      id: test-report-edge
       if: success() || failure()
       with:
         name: Microsoft Edge Pytest Tests

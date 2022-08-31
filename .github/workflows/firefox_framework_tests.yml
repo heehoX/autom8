@@ -37,7 +37,7 @@ jobs:
         pytest -v -k firefox -m unit --junitxml=report.xml
     - name: Test Report
       uses: phoenix-actions/test-reporting@v8
-      id: test-report
+      id: test-report-firefox
       if: success() || failure()
       with:
         name: Mozilla Firefox Pytest Tests
