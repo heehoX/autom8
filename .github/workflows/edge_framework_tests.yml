@@ -4,7 +4,10 @@
 name: 'Edge'
 
 on:
+  push:
+    branches: [ "main" ]
   pull_request:
+    branches: [ "main" ]
 
 permissions:
   id-token: write
@@ -31,10 +34,12 @@ jobs:
         echo "headless=true" >> $GITHUB_ENV
     - name: Test with pytest
       run: |
-        pytest -v -k edge -m unit --junitxml=edge-report.xml
+        pytest -v -k edge -m unit --junitxml=report.xml
     - name: Test Report
-      uses: actions/upload-artifact@v2
+      uses: phoenix-actions/test-reporting@v8
+      id: test-report-edge
       if: success() || failure()
       with:
-        name: test-results
-        path: edge-report.xml
+        name: Microsoft Edge Pytest Tests
+        path: report.xml
+        reporter: java-junit
