@@ -58,10 +58,6 @@ def test_tab_switching(driver, driver_type):
     assert driver.get_driver().title == "Google"
 
     # open new tab, navigate to a page then check if the new page is opened in the new tab and not the old one
-    driver.open_new_tab(url="https://bing.com")
-    assert driver.get_driver().current_window_handle == driver.get_driver().window_handles[-1]
-    assert driver.get_driver().title == "Bing"
-
     driver.open_new_tab(url="https://duckduckgo.com")
     assert driver.get_driver().current_window_handle == driver.get_driver().window_handles[-1]
     assert driver.get_driver().title == "DuckDuckGo — Privacy, simplified."

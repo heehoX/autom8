@@ -5,6 +5,8 @@ from selenium.webdriver.remote.webdriver import WebElement
 
 
 class UiElementInterface(metaclass=ABCMeta):
+    def get_element(self) -> WebElement: ...
+
     @abstractmethod
     def click(self): ...
 
