@@ -1,9 +1,11 @@
 name: 'Test Report'
+
 on:
   workflow_run:
     workflows: ['Chrome', 'Firefox', 'Edge']
     types:
       - completed
+
 jobs:
   report:
     runs-on: ubuntu-latest
