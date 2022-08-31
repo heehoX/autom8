@@ -1,13 +1,10 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: Python application
+name: 'Firefox'
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
 
 permissions:
   id-token: write
@@ -19,9 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: browser-actions/setup-chrome@latest
     - uses: browser-actions/setup-firefox@latest
-    - uses: browser-actions/setup-edge@latest
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
@@ -36,12 +31,10 @@ jobs:
         echo "headless=true" >> $GITHUB_ENV
     - name: Test with pytest
       run: |
-        pytest -v -m unit --junitxml=report.xml
+        pytest -v -k firefox -m unit --junitxml=firefox-report.xml
     - name: Test Report
-      uses: phoenix-actions/test-reporting@v8
-      id: test-report
+      uses: actions/upload-artifact@v2
       if: success() || failure()
       with:
-        name: Pytest Tests
-        path: report.xml
-        reporter: java-junit
+        name: test-results
+        path: firefox-report.xml
