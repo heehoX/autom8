@@ -20,8 +20,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: browser-actions/setup-chrome@latest
-    - uses: browser-actions/setup-firefox@latest
-    - uses: browser-actions/setup-edge@latest
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
@@ -36,7 +34,7 @@ jobs:
         echo "headless=true" >> $GITHUB_ENV
     - name: Test with pytest
       run: |
-        pytest -v -m unit --junitxml=report.xml
+        pytest -v -k chrome -m unit --junitxml=report.xml
     - name: Test Report
       uses: phoenix-actions/test-reporting@v8
       id: test-report
